@@ -1,0 +1,4 @@
+curl -X 'POST' 127.0.0.1:5000/perform_query \
+-d '{"password":"123", "email":"test1@user.ru"}' \
+-H 'Content-type: application/json'
+
