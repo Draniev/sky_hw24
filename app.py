@@ -43,7 +43,11 @@ def make_cmd(cmd: str, data, param: str):
 
 @app.route('/perform_query', methods=['POST', 'GET'])
 def perform_query():
-    params = request.json
+    if request.method == 'POST':
+        params = request.json
+    elif request.method == 'GET':
+        params = request.args
+
     cmd1 = params.get('cmd1')
     value1 = params.get('value1')
     cmd2 = params.get('cmd2')
