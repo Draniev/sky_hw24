@@ -1,4 +1,5 @@
-from typing import Literal
+import re
+from typing import Iterator, Literal
 
 
 def load_file(file_name: str):
@@ -27,11 +28,19 @@ def cmd_unique(data):
     return set(data)
 
 
+def cmd_regex(data, rstring: str) -> Iterator[str]:
+    for item in data:
+        smth = re.findall(rstring, item)
+        if smth:
+            yield item
+
+
 if __name__ == "__main__":
-    file_data = load_file('data/apache_logs_small.txt')
-    data = cmd_filter(file_data, '7')
-    data = cmd_map(data, 0)
-    data = cmd_sort(data, 'desc')
-    data = cmd_limit(data, 4)
-    data = cmd_unique(data)
+    file_data = load_file('data/apache_logs.txt')
+    data = cmd_regex(file_data, r'images\/\w+\.png')
+    # data = cmd_filter(file_data, '7')
+    # data = cmd_map(data, 0)
+    # data = cmd_sort(data, 'desc')
+    # data = cmd_limit(data, 4)
+    # data = cmd_unique(data)
     print(list(data))
